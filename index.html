@@ -200,7 +200,7 @@
             { name: "Sky Sports Action", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-32.php" },
             { name: "Sky Sports Main Event", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-38.php" },
             { name: "Sky Sports Premier League", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-39.php" },
-            { name: "TNT Sports 1", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-31.php"
+            { name: "TNT Sports 1", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-31.php" },
             { name: "TNT Sports 2", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-32.php" },
             { name: "TNT Sports 3", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-33.php" },
             { name: "USA Network", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-343.php" },
@@ -209,61 +209,81 @@
             { name: "Ifollow Stanley", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Accrington_Stanley_F.C._logo.svg/1200px-Accrington_Stanley_F.C._logo.svg.png", url: "https://daddylivehd1.click/embed/stream-181.php" }
         ];
 
-        // Inject channels into the page
-        const channelList = document.querySelector('.channel-list');
+        const searchBar = document.getElementById("search-bar");
+        const channelList = document.querySelector(".channel-list");
+        const iframe = document.getElementById("stream-iframe");
 
-        channels.forEach(channel => {
-            const channelElement = document.createElement('div');
-            channelElement.classList.add('channel');
-            channelElement.innerHTML = `
-                <img src="${channel.logo}" alt="${channel.name}">
-                <h4>${channel.name}</h4>
-                <button onclick="openStream('${channel.url}')">Watch Now</button>
-            `;
-            channelList.appendChild(channelElement);
-        });
-
-        // Search function
-        function searchChannels() {
-            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
-            const channelElements = document.querySelectorAll('.channel');
-
-            channelElements.forEach(channel => {
-                const channelName = channel.querySelector('h4').textContent.toLowerCase();
-                if (channelName.includes(searchQuery)) {
-                    channel.style.display = 'block';
-                } else {
-                    channel.style.display = 'none';
-                }
+        // Render all channels
+        function renderChannels() {
+            channels.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'channel';
+                channelDiv.innerHTML = `
+                    <img src="${channel.logo}" alt="${channel.name}">
+                    <h4>${channel.name}</h4>
+                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
+                `;
+                channelList.appendChild(channelDiv);
             });
         }
 
-        // Open stream in iframe
-        function openStream(url) {
-            const iframe = document.getElementById('stream-iframe');
+        // Watch channel in the iframe
+        function watchChannel(url) {
             iframe.src = url;
         }
 
-        // Fullscreen toggle for iframe
-        function toggleFullscreen() {
-            const iframe = document.getElementById('stream-iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.mozRequestFullScreen) { // Firefox
-                iframe.mozRequestFullScreen();
-            } else if (iframe.webkitRequestFullscreen) { // Chrome and Safari
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) { // IE/Edge
-                iframe.msRequestFullscreen();
+        // Search Channels
+        function searchChannels() {
+            const query = searchBar.value.toLowerCase();
+            const filteredChannels = channels.filter(channel =>
+                channel.name.toLowerCase().includes(query)
+            );
+            renderFilteredChannels(filteredChannels);
+        }
+
+        function renderFilteredChannels(filteredChannels) {
+            channelList.innerHTML = '';
+            filteredChannels.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'channel';
+                channelDiv.innerHTML = `
+                    <img src="${channel.logo}" alt="${channel.name}">
+                    <h4>${channel.name}</h4>
+                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
+                `;
+                channelList.appendChild(channelDiv);
+            });
+        }
+
+        // Toggle the timetable visibility
+        function toggleTimetable() {
+            const timetable = document.getElementById("timetable");
+            timetable.classList.toggle("collapsed");
+            const button = document.querySelector(".expand-btn");
+            if (timetable.classList.contains("collapsed")) {
+                button.textContent = "Expand Timetable";
+            } else {
+                button.textContent = "Collapse Timetable";
             }
         }
 
-        // Timetable toggle
-        function toggleTimetable() {
-            const timetable = document.getElementById('timetable');
-            timetable.style.display = (timetable.style.display === 'none') ? 'block' : 'none';
+        // Full-Screen Toggle for iframe content
+        function toggleFullscreen() {
+            const iframeElement = document.getElementById("stream-iframe");
+            if (iframeElement.requestFullscreen) {
+                iframeElement.requestFullscreen();
+            } else if (iframeElement.mozRequestFullScreen) { /* Firefox */
+                iframeElement.mozRequestFullScreen();
+            } else if (iframeElement.webkitRequestFullscreen) { /* Chrome, Safari, Opera */
+                iframeElement.webkitRequestFullscreen();
+            } else if (iframeElement.msRequestFullscreen) { /* IE/Edge */
+                iframeElement.msRequestFullscreen();
+            }
         }
-    </script>
 
+        // Initialize the page
+        renderChannels();
+    </script>
 </body>
+
 </html>
