@@ -17,6 +17,25 @@
             min-height: 100vh;
         }
 
+        /* Search Bar at the top */
+        .search-bar-container {
+            padding: 20px;
+            background-color: #121212;
+            border-bottom: 1px solid #f39c12;
+            text-align: center;
+        }
+
+        .search-bar {
+            padding: 12px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+
         .container {
             display: flex;
             padding: 20px;
@@ -104,18 +123,6 @@
             background-color: #e67e22;
         }
 
-        /* Search Bar */
-        .search-bar {
-            padding: 12px;
-            margin-bottom: 20px;
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #333;
-            color: #fff;
-            font-size: 16px;
-        }
-
         /* Iframe Container */
         #iframe-container {
             background-color: #1e1e1e;
@@ -136,6 +143,11 @@
 
 <body>
 
+    <!-- Search Bar -->
+    <div class="search-bar-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search Channels" onkeyup="searchChannels()">
+    </div>
+
     <div class="container">
         <!-- Timetable Section -->
         <div class="timetable">
@@ -145,7 +157,6 @@
 
         <!-- Channel List Section -->
         <div class="channel-list">
-            <input type="text" id="search-bar" class="search-bar" placeholder="Search Channels" onkeyup="searchChannels()">
             <!-- Channel Entries will be injected here -->
         </div>
     </div>
