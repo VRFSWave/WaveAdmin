@@ -7,65 +7,72 @@
     <title>Live Football Streams</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #121212;
+            color: #fff;
         }
 
         .container {
             display: flex;
             flex: 1;
-            flex-direction: row;
             padding: 20px;
+            justify-content: space-between;
         }
 
-        .timetable,
-        .channel-list {
-            margin-right: 20px;
-        }
-
+        /* Timetable Section */
         .timetable {
             width: 250px;
-            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #1e1e1e;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        .timetable button {
             padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 16px;
         }
 
-        .timetable ul {
-            list-style-type: none;
-            padding: 0;
+        .timetable button:hover {
+            background-color: #e67e22;
         }
 
-        .timetable li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .timetable li:last-child {
-            border-bottom: none;
-        }
-
+        /* Channel List */
         .channel-list {
             flex: 1;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            background-color: #fff;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
             padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .channel {
-            background-color: #fff;
-            padding: 10px;
-            border: 1px solid #ddd;
+            background-color: #1e1e1e;
+            padding: 15px;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .channel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
         }
 
         .channel img {
@@ -74,9 +81,15 @@
             margin-bottom: 10px;
         }
 
+        .channel h4 {
+            color: #f39c12;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
         .channel button {
             padding: 8px 15px;
-            background-color: #3498db;
+            background-color: #f39c12;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -85,43 +98,34 @@
         }
 
         .channel button:hover {
-            background-color: #2980b9;
+            background-color: #e67e22;
         }
 
+        /* Search Bar */
+        .search-bar {
+            padding: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        /* Iframe Container */
         #iframe-container {
             margin-top: 20px;
-            border: 1px solid #ddd;
+            background-color: #1e1e1e;
             padding: 20px;
-            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         iframe {
             width: 100%;
             height: 500px;
-        }
-
-        .search-bar {
-            padding: 10px;
-            margin-bottom: 20px;
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .expand-btn {
-            padding: 5px 10px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .expand-btn:hover {
-            background-color: #2980b9;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -131,14 +135,8 @@
     <div class="container">
         <!-- Timetable Section -->
         <div class="timetable">
-            <button class="expand-btn" onclick="toggleTimetable()">Toggle Timetable</button>
-            <ul id="timetable">
-                <li>9:00 AM - Match 1</li>
-                <li>11:00 AM - Match 2</li>
-                <li>1:00 PM - Match 3</li>
-                <li>3:00 PM - Match 4</li>
-                <li>5:00 PM - Match 5</li>
-            </ul>
+            <iframe src="https://www.live-footballontv.com/" title="Football Timetable"></iframe>
+            <button class="expand-btn" onclick="toggleTimetable()">Expand/Collapse Timetable</button>
         </div>
 
         <!-- Channel List Section -->
@@ -148,7 +146,7 @@
         </div>
     </div>
 
-    <!-- Embedded Stream Section -->
+    <!-- Embedded Stream Section at the bottom -->
     <div id="iframe-container">
         <iframe id="stream-iframe" src="" frameborder="0"></iframe>
     </div>
@@ -198,30 +196,37 @@
             });
         }
 
-        // Function to display the selected channel stream
+        // Function to display the selected channel in the iframe
         function watchChannel(url) {
             iframe.src = url;
         }
 
-        // Function to search channels
+        // Search Channels
         function searchChannels() {
             const query = searchBar.value.toLowerCase();
-            const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(query));
-            channels.length = 0;
-            channels.push(...filteredChannels);
-            renderChannels();
+            const filteredChannels = channels.filter(channel =>
+                channel.name.toLowerCase().includes(query)
+            );
+            renderFilteredChannels(filteredChannels);
         }
 
-        // Timetable toggle functionality
-        function toggleTimetable() {
-            const timetable = document.getElementById('timetable');
-            timetable.style.display = timetable.style.display === 'none' ? 'block' : 'none';
+        function renderFilteredChannels(filteredChannels) {
+            channelList.innerHTML = '';
+            filteredChannels.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'channel';
+                channelDiv.innerHTML = `
+                    <img src="${channel.logo}" alt="${channel.name}">
+                    <h4>${channel.name}</h4>
+                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
+                `;
+                channelList.appendChild(channelDiv);
+            });
         }
 
-        // Initial render of channels
+        // Initialize the page
         renderChannels();
     </script>
-
 </body>
 
 </html>
