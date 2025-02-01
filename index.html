@@ -12,27 +12,23 @@
             padding: 0;
             background-color: #121212;
             color: #fff;
-            width: 1902px; /* Fixed width */
-            height: 1080px; /* Fixed height */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            min-height: 100vh;
         }
 
         /* Search Bar at the top */
         .search-bar-container {
-            padding: 15px;
+            padding: 20px;
             background-color: #121212;
             border-bottom: 1px solid #f39c12;
             text-align: center;
-            width: 100%;
         }
 
         .search-bar {
-            padding: 10px;
+            padding: 12px;
             width: 80%;
-            max-width: 500px;
+            max-width: 600px;
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #333;
@@ -40,27 +36,21 @@
             font-size: 16px;
         }
 
-        /* Main Container */
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             padding: 20px;
-            width: 100%;
-            height: calc(100% - 70px); /* Adjust height to fit content */
-            overflow-y: auto;
-            padding-bottom: 20px;
+            flex-grow: 1;
+            justify-content: space-between;
         }
 
         /* Timetable Section */
         .timetable {
-            width: 100%;
-            max-width: 800px; /* Maximum width for timetable */
+            width: 350px; /* Made the timetable wider */
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             background-color: #1e1e1e;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
 
         iframe {
@@ -85,13 +75,12 @@
             background-color: #e67e22;
         }
 
-        /* Channel List Section */
         .channel-list {
+            flex: 1;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
-            width: 100%;
-            max-width: 1400px;
+            padding: 10px;
         }
 
         .channel {
@@ -134,30 +123,20 @@
             background-color: #e67e22;
         }
 
-        /* Iframe Container at the bottom */
+        /* Iframe Container */
         #iframe-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
             background-color: #1e1e1e;
             padding: 20px;
-            border-radius: 8px 8px 0 0;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            width: 100%;
         }
 
         iframe {
-            width: 100%;
+            width: 700px;
             height: 500px;
             border-radius: 8px;
-        }
-
-        /* Desktop-only media query to force 1902x1080 size */
-        @media (max-width: 1902px) {
-            body {
-                width: 1902px; /* Keep the width fixed */
-                height: 1080px; /* Keep the height fixed */
-            }
         }
     </style>
 </head>
@@ -202,67 +181,78 @@
             { name: "Sky Sports Football", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-30.php" },
             { name: "Sky Sports Arena", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-31.php" },
             { name: "Sky Sports Action", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-32.php" },
-            { name: "Sky Sports News", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-33.php" },
+            { name: "Sky Sports Main Event", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-38.php" },
+            { name: "Sky Sports Premier League", logo: "https://www.sportspro.com/wp-content/uploads/2023/04/Sky_Sports_Logo_September_2020-1.png", url: "https://thedaddy.to/embed/stream-39.php" },
+            { name: "TNT Sports 1", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-31.php" },
+            { name: "TNT Sports 2", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-32.php" },
+            { name: "TNT Sports 3", logo: "https://logos-world.net/wp-content/uploads/2022/12/TNT-Logo.png", url: "https://thedaddy.to/embed/stream-33.php" },
+            { name: "USA Network", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-343.php" },
+            { name: "Premier Sports 1", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-451.php" },
+            { name: "Premier Sports 2", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-550.php" },
+            { name: "Ifollow Stanley", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Accrington_Stanley_F.C._logo.svg/1200px-Accrington_Stanley_F.C._logo.svg.png", url: "https://daddylivehd1.click/embed/stream-181.php" }
         ];
 
-        function toggleTimetable() {
-            const iframe = document.querySelector('.timetable iframe');
-            const currentSrc = iframe.src;
-            iframe.src = currentSrc ? "" : "https://www.live-footballontv.com/";
-        }
+        const searchBar = document.getElementById("search-bar");
+        const channelList = document.querySelector(".channel-list");
+        const iframe = document.getElementById("stream-iframe");
 
-        function displayChannels() {
-            const channelList = document.querySelector('.channel-list');
-            channelList.innerHTML = '';
+        // Render all channels
+        function renderChannels() {
             channels.forEach(channel => {
                 const channelDiv = document.createElement('div');
-                channelDiv.classList.add('channel');
+                channelDiv.className = 'channel';
                 channelDiv.innerHTML = `
                     <img src="${channel.logo}" alt="${channel.name}">
                     <h4>${channel.name}</h4>
-                    <button onclick="openStream('${channel.url}')">Watch</button>
+                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
                 `;
-                if (channel.isBlue) {
-                    channelDiv.style.borderColor = 'blue';
-                }
                 channelList.appendChild(channelDiv);
             });
         }
 
-        function openStream(url) {
-            const iframe = document.getElementById('stream-iframe');
+        // Watch channel in the iframe
+        function watchChannel(url) {
             iframe.src = url;
         }
 
+        // Search Channels
         function searchChannels() {
-            const query = document.getElementById('search-bar').value.toLowerCase();
-            const filteredChannels = channels.filter(channel => 
+            const query = searchBar.value.toLowerCase();
+            const filteredChannels = channels.filter(channel =>
                 channel.name.toLowerCase().includes(query)
             );
-            updateChannelList(filteredChannels);
+            renderFilteredChannels(filteredChannels);
         }
 
-        function updateChannelList(filteredChannels) {
-            const channelList = document.querySelector('.channel-list');
+        function renderFilteredChannels(filteredChannels) {
             channelList.innerHTML = '';
             filteredChannels.forEach(channel => {
                 const channelDiv = document.createElement('div');
-                channelDiv.classList.add('channel');
+                channelDiv.className = 'channel';
                 channelDiv.innerHTML = `
                     <img src="${channel.logo}" alt="${channel.name}">
                     <h4>${channel.name}</h4>
-                    <button onclick="openStream('${channel.url}')">Watch</button>
+                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
                 `;
-                if (channel.isBlue) {
-                    channelDiv.style.borderColor = 'blue';
-                }
                 channelList.appendChild(channelDiv);
             });
         }
 
-        window.onload = displayChannels;
-    </script>
+        // Toggle the timetable visibility
+        function toggleTimetable() {
+            const timetable = document.getElementById("timetable");
+            timetable.classList.toggle("collapsed");
+            const button = document.querySelector(".expand-btn");
+            if (timetable.classList.contains("collapsed")) {
+                button.textContent = "Expand Timetable";
+            } else {
+                button.textContent = "Collapse Timetable";
+            }
+        }
 
+        // Initialize the page
+        renderChannels();
+    </script>
 </body>
 
 </html>
