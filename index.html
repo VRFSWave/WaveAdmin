@@ -206,7 +206,13 @@
             { name: "USA Network", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-343.php" },
             { name: "Premier Sports 1", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-451.php" },
             { name: "Premier Sports 2", logo: "https://i.ibb.co/vj5yj2B/Wave.png", url: "https://thedaddy.to/embed/stream-550.php" },
-            { name: "Ifollow Stanley", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Accrington_Stanley_F.C._logo.svg/1200px-Accrington_Stanley_F.C._logo.svg.png", url: "https://daddylivehd1.click/embed/stream-181.php" }
+            { name: "Ifollow Stanley", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Accrington_Stanley_F.C._logo.svg/1200px-Accrington_Stanley_F.C._logo.svg.png", url: "https://daddylivehd1.click/embed/stream-181.php" },
+            { name: "Fight Network", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnoFt9h3V02Z1_kgFUHcgcOIlRTIXt4MLtDQ&s", url: "https://thedaddy.to/embed/stream-757.php" },
+            { name: "ESPN 1", logo: "https://www.sportspro.com/wp-content/uploads/2023/03/ESPN-logo.png", url: "https://thedaddy.to/embed/stream-44.php" },
+            { name: "ESPN 2", logo: "https://www.sportspro.com/wp-content/uploads/2023/03/ESPN-logo.png", url: "https://thedaddy.to/embed/stream-44.php" },
+            { name: "UFC TV (BACKUP ONLY)", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/UFC_Fight_Pass_Logo.svg/640px-UFC_Fight_Pass_Logo.svg.png", url: "https://thedaddy.to/embed/stream-45.php" },
+            { name: "TruTV", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/TruTV_2014.svg", url: "https://thedaddy.to/embed/stream-341.php" },
+            { name: "LaLiga secondo Division TV", logo: "https://www.gamesatlas.com/images/football/leagues/la-liga-2.png", url: "https://thedaddy.to/embed/stream-539.php" }
         ];
 
         const searchBar = document.getElementById("search-bar");
@@ -272,18 +278,18 @@
             const iframeElement = document.getElementById("stream-iframe");
             if (iframeElement.requestFullscreen) {
                 iframeElement.requestFullscreen();
-            } else if (iframeElement.mozRequestFullScreen) { /* Firefox */
+            } else if (iframeElement.mozRequestFullScreen) {
                 iframeElement.mozRequestFullScreen();
-            } else if (iframeElement.webkitRequestFullscreen) { /* Chrome, Safari, Opera */
+            } else if (iframeElement.webkitRequestFullscreen) {
                 iframeElement.webkitRequestFullscreen();
-            } else if (iframeElement.msRequestFullscreen) { /* IE/Edge */
+            } else if (iframeElement.msRequestFullscreen) {
                 iframeElement.msRequestFullscreen();
             }
         }
 
-        // Initialize the page
+        // Initial render
         renderChannels();
     </script>
-</body>
 
+</body>
 </html>
