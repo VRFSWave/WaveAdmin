@@ -12,12 +12,15 @@
             padding: 0;
             background-color: #121212;
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             display: flex;
-            flex: 1;
             padding: 20px;
+            flex-grow: 1;
             justify-content: space-between;
         }
 
@@ -115,11 +118,12 @@
 
         /* Iframe Container */
         #iframe-container {
-            margin-top: 20px;
             background-color: #1e1e1e;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            width: 100%;
         }
 
         iframe {
@@ -177,13 +181,12 @@
             { name: "Ifollow Stanley", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Accrington_Stanley_F.C._logo.svg/1200px-Accrington_Stanley_F.C._logo.svg.png", url: "https://daddylivehd1.click/embed/stream-181.php" }
         ];
 
-        const channelList = document.querySelector('.channel-list');
-        const searchBar = document.getElementById('search-bar');
-        const iframe = document.getElementById('stream-iframe');
+        const searchBar = document.getElementById("search-bar");
+        const channelList = document.querySelector(".channel-list");
+        const iframe = document.getElementById("stream-iframe");
 
-        // Function to render channels
+        // Render all channels
         function renderChannels() {
-            channelList.innerHTML = '';
             channels.forEach(channel => {
                 const channelDiv = document.createElement('div');
                 channelDiv.className = 'channel';
@@ -196,7 +199,7 @@
             });
         }
 
-        // Function to display the selected channel in the iframe
+        // Watch channel in the iframe
         function watchChannel(url) {
             iframe.src = url;
         }
