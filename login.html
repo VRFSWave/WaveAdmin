@@ -1,77 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .login-container {
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 100px;
-        }
-        input {
-            display: block;
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            background: blue;
-            color: white;
-            padding: 10px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.authpro.com/authpro.js"></script>
+  <script>
+    const authPro = new AuthPro({
+      apiKey: 'srtlr4bo01jm1efu' // Get this from your AuthPro dashboard
+    });
+
+    // Login function
+    function login() {
+      authPro.login()
+        .then(response => {
+          console.log('Logged in:', response);
+          // After login, you can show the user's info or redirect
+          getUser();
+        })
+        .catch(error => {
+          console.error('Error logging in:', error);
+        });
+    }
+
+    // Get user info after login
+    function getUser() {
+      authPro.getUser()
+        .then(user => {
+          document.getElementById('user-info').innerHTML = `Hello, ${user.name}`;
+        })
+        .catch(error => {
+          console.error('Error getting user info:', error);
+        });
+    }
+
+    // Logout function
+    function logout() {
+      authPro.logout()
+        .then(() => {
+          console.log('Logged out');
+          document.getElementById('user-info').innerHTML = '';
+        })
+        .catch(error => {
+          console.error('Error logging out:', error);
+        });
+    }
+  </script>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <p id="message"></p>
-    </div>
-
-    <script>
-        async function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            fetch("https://script.google.com/macros/s/AKfycbxlpa4AHSRP4swlxq-Y4hCw-L19hytLjjzS59ls_9Rm98C6AcmaMspGxRqYylx7bNHx/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    username: "testuser",
-    password: "password123"
-  })
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error("Error:", error));
-
-
-            const result = await response.json();
-            document.getElementById("message").textContent = result.message;
-
-            if (result.success) {
-                window.location.href = "index.html"; // Redirect on success
-            }
-        }
-    </script>
+  <h1>Welcome to the AuthPro Login Page</h1>
+  <button onclick="login()">Login</button>
+  <button onclick="logout()">Logout</button>
+  <div id="user-info"></div>
 </body>
 </html>
