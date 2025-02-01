@@ -210,37 +210,41 @@
             { name: "Fight Network", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnoFt9h3V02Z1_kgFUHcgcOIlRTIXt4MLtDQ&s", url: "https://thedaddy.to/embed/stream-757.php" },
             { name: "ESPN 1", logo: "https://www.sportspro.com/wp-content/uploads/2023/03/ESPN-logo.png", url: "https://thedaddy.to/embed/stream-44.php" },
             { name: "ESPN 2", logo: "https://www.sportspro.com/wp-content/uploads/2023/03/ESPN-logo.png", url: "https://thedaddy.to/embed/stream-44.php" },
-            { name: "UFC TV (BACKUP ONLY)", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/UFC_Fight_Pass_Logo.svg/640px-UFC_Fight_Pass_Logo.svg.png", url: "https://thedaddy.to/embed/stream-45.php" },
-            { name: "TruTV", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/TruTV_2014.svg", url: "https://thedaddy.to/embed/stream-341.php" },
-            { name: "LaLiga secondo Division TV", logo: "https://www.gamesatlas.com/images/football/leagues/la-liga-2.png", url: "https://thedaddy.to/embed/stream-539.php" }
+            { name: "UFC TV (BACKUP ONLY)", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/UFC_Fight_Pass_Logo.svg/640px-UFC_Fight_Pass_Logo.svg.png", url: "https://daddylivehd1.click/embed/stream-54.php" },
+            { name: "UFC ESPN", logo: "https://upload.wikimedia.org/wikipedia/commons/9/92/UFC_Logo.svg", url: "https://daddylivehd1.click/embed/stream-110.php" },
+            { name: "Willow Cricket", logo: "https://static.wikia.nocookie.net/logopedia/images/7/7d/Willow_2023_stacked.svg/revision/latest/scale-to-width-down/250?cb=20240927132511", url: "https://daddylivehd1.click/embed/stream-346.php" },
+            { name: "Supersport PL Live", logo: "https://static.wikia.nocookie.net/logopedia/images/5/5f/SuperSport_HD.png/revision/latest?cb=20111012224537", url: "https://daddylivehd1.click/embed/stream-414.php" },
+            { name: "Comedy Central", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Comedy_Central_2018.svg/1200px-Comedy_Central_2018.svg.png", url: "https://daddylivehd1.click/embed/stream-310.php" },
+            { name: "MUTV", logo: "https://m.media-amazon.com/images/I/61rrCc7UQAL.png", url: "https://thedaddy.to/embed/stream-377.php" },
+            { name: "Prima Sport", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Prima_sport.png/640px-Prima_sport.png", url: "https://thedaddy.to/embed/stream-522.php" },
+            { name: "F1TV", logo: "https://1000logos.net/wp-content/uploads/2021/06/F1-logo.png", url: "https://thedaddy.to/embed/stream-60.php" },
+            { name: "Supersport 1", logo: "https://static.wikia.nocookie.net/logopedia/images/5/5f/SuperSport_HD.png/revision/latest?cb=20111012224537", url: "https://thedaddy.to/embed/stream-416.php" },
+            { name: "Channel 4", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Channel_4_%28On_Demand%29_2023.svg/1200px-Channel_4_%28On_Demand%29_2023.svg.png", url: "https://thedaddy.to/embed/stream-354.php" }
         ];
 
-        const searchBar = document.getElementById("search-bar");
-        const channelList = document.querySelector(".channel-list");
-        const iframe = document.getElementById("stream-iframe");
-
-        // Render all channels
         function renderChannels() {
+            const channelListContainer = document.querySelector('.channel-list');
+            channelListContainer.innerHTML = '';
+
             channels.forEach(channel => {
-                const channelDiv = document.createElement('div');
-                channelDiv.className = 'channel';
-                channelDiv.innerHTML = `
+                const channelElement = document.createElement('div');
+                channelElement.classList.add('channel');
+                channelElement.innerHTML = `
                     <img src="${channel.logo}" alt="${channel.name}">
                     <h4>${channel.name}</h4>
-                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
+                    <button onclick="openStream('${channel.url}')">Watch Live</button>
                 `;
-                channelList.appendChild(channelDiv);
+                channelListContainer.appendChild(channelElement);
             });
         }
 
-        // Watch channel in the iframe
-        function watchChannel(url) {
+        function openStream(url) {
+            const iframe = document.getElementById('stream-iframe');
             iframe.src = url;
         }
 
-        // Search Channels
         function searchChannels() {
-            const query = searchBar.value.toLowerCase();
+            const query = document.getElementById('search-bar').value.toLowerCase();
             const filteredChannels = channels.filter(channel =>
                 channel.name.toLowerCase().includes(query)
             );
@@ -248,34 +252,23 @@
         }
 
         function renderFilteredChannels(filteredChannels) {
-            channelList.innerHTML = '';
+            const channelListContainer = document.querySelector('.channel-list');
+            channelListContainer.innerHTML = '';
+
             filteredChannels.forEach(channel => {
-                const channelDiv = document.createElement('div');
-                channelDiv.className = 'channel';
-                channelDiv.innerHTML = `
+                const channelElement = document.createElement('div');
+                channelElement.classList.add('channel');
+                channelElement.innerHTML = `
                     <img src="${channel.logo}" alt="${channel.name}">
                     <h4>${channel.name}</h4>
-                    <button onclick="watchChannel('${channel.url}')">Watch Now</button>
+                    <button onclick="openStream('${channel.url}')">Watch Live</button>
                 `;
-                channelList.appendChild(channelDiv);
+                channelListContainer.appendChild(channelElement);
             });
         }
 
-        // Toggle the timetable visibility
-        function toggleTimetable() {
-            const timetable = document.getElementById("timetable");
-            timetable.classList.toggle("collapsed");
-            const button = document.querySelector(".expand-btn");
-            if (timetable.classList.contains("collapsed")) {
-                button.textContent = "Expand Timetable";
-            } else {
-                button.textContent = "Collapse Timetable";
-            }
-        }
-
-        // Full-Screen Toggle for iframe content
         function toggleFullscreen() {
-            const iframeElement = document.getElementById("stream-iframe");
+            const iframeElement = document.getElementById('stream-iframe');
             if (iframeElement.requestFullscreen) {
                 iframeElement.requestFullscreen();
             } else if (iframeElement.mozRequestFullScreen) {
