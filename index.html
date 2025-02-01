@@ -131,12 +131,29 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin-top: 20px;
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         iframe {
-            width: 700px;
+            width: 80%;
             height: 500px;
             border-radius: 8px;
+        }
+
+        .fullscreen-btn {
+            padding: 10px;
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #e67e22;
         }
     </style>
 </head>
@@ -164,6 +181,7 @@
     <!-- Embedded Stream Section at the bottom -->
     <div id="iframe-container">
         <iframe id="stream-iframe" src="" frameborder="0"></iframe>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()">Go Full-Screen</button>
     </div>
 
     <script>
@@ -247,6 +265,20 @@
                 button.textContent = "Expand Timetable";
             } else {
                 button.textContent = "Collapse Timetable";
+            }
+        }
+
+        // Full-Screen Toggle
+        function toggleFullscreen() {
+            const iframeContainer = document.getElementById("iframe-container");
+            if (iframeContainer.requestFullscreen) {
+                iframeContainer.requestFullscreen();
+            } else if (iframeContainer.mozRequestFullScreen) { /* Firefox */
+                iframeContainer.mozRequestFullScreen();
+            } else if (iframeContainer.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                iframeContainer.webkitRequestFullscreen();
+            } else if (iframeContainer.msRequestFullscreen) { /* IE/Edge */
+                iframeContainer.msRequestFullscreen();
             }
         }
 
